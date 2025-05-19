@@ -153,6 +153,7 @@ func (client *AuthenticationClient) checkAppIdSecret() *dto.CheckAppIdSecretResp
 			AppSecret: client.options.AppSecret,
 		},
 	)
+	fmt.Printf("body=%s\n", string(body))
 	var response dto.CheckAppIdSecretRespDto
 	if err != nil {
 		fmt.Println(err)
