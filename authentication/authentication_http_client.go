@@ -91,7 +91,7 @@ func (client *AuthenticationClient) SendHttpRequest(url string, method string, r
 	httpClient := &fasthttp.Client{
 		TLSConfig: &tls.Config{InsecureSkipVerify: client.options.InsecureSkipVerify},
 		Dial: func(addr string) (net.Conn, error) {
-			return net.DialTimeout("tcp", addr, 5*time.Second)
+			return net.DialTimeout("tcp", addr, 10*time.Second)
 		},
 	}
 
