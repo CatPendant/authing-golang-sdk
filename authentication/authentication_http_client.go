@@ -6,7 +6,9 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"net"
 	"strings"
+	"time"
 
 	"github.com/Authing/authing-golang-sdk/v3/constant"
 	"github.com/Authing/authing-golang-sdk/v3/util"
@@ -88,6 +90,9 @@ func (client *AuthenticationClient) SendHttpRequest(url string, method string, r
 
 	httpClient := &fasthttp.Client{
 		TLSConfig: &tls.Config{InsecureSkipVerify: client.options.InsecureSkipVerify},
+		Dial: func(addr string) (net.Conn, error) {
+			return net.DialTimeout("tcp", addr, 5*time.Second)
+		},
 	}
 
 	err = httpClient.DoTimeout(req, resp, client.options.ReadTimeout)
